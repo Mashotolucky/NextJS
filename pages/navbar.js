@@ -3,7 +3,7 @@ import React from 'react'
 function Navbar() {
     return (
         <>
-            <div class="container-fluid border p-4 d-flex justify-content-between">
+            <div className="container-fluid border p-4 d-flex justify-content-between">
 
                 <div>
                     <h1 className="text-info">

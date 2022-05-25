@@ -1,43 +1,50 @@
-import React from 'react'
+import React from 'react';
+import { useState, useEffect } from "react";
 
 
+function Card() {
+    const [users, setUsers] = useState([]);
 
+    const fetchData = () => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                setUsers(data);
 
-
-    function Card() {
-        function Profile() {
-            const [data, setData] = useState(null)
-            const [isLoading, setLoading] = useState(false)
-        
-            useEffect(async () => {
-                setLoading(true)
-                
-                const res = await fetch("https://jsonplaceholder.typicode.com/users");
-                const posts = await res.json();
-                console.log(posts)
-                setData(posts);
-        
-                setLoading(false);
-        
-            }, []);
-
-        return (
-            <>
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-3 mt-4">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">Title</h4>
-                                    <p className="card-text">Text</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </>
-        )
+            })
     }
 
-    export default Card
+    useEffect(() => {
+        fetchData();
+
+    }, []);
+    
+
+    return (
+        <>
+            <div className="container">
+                <div className="row">
+                    <div className="mt-4 d-flex">
+                            { users.map((user) =>
+                            <div key={user.id}  className="card p-2 mx-2 col-2">
+                                <div className="card-body">
+                                    <h4 className="card-title">{user.name}</h4>
+                                    <p className="card-text">{user.email}</p>
+                                </div>
+                                </div>
+                            )
+
+                            }
+                        
+                    </div>
+                </div>
+
+            </div>
+        </>
+    )
+}
+
+export default Card
